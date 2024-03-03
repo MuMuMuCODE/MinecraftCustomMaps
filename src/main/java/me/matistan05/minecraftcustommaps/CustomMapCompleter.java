@@ -18,9 +18,9 @@ public class CustomMapCompleter implements TabCompleter {
             if(startsWith("give", args[0])) {
                 list.add("give");
             }
-            if(startsWith("fillitemframes", args[0])) {
-                list.add("fillitemframes");
-            }
+//            if(startsWith("fillitemframes", args[0])) {
+//                list.add("fillitemframes");
+//            }
             if(startsWith("changeproperties", args[0])) {
                 list.add("changeproperties");
             }

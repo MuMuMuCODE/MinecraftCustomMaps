@@ -43,11 +43,19 @@ public class InteractListener implements Listener {
         ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
         if(!item.getType().equals(Material.FILLED_MAP)) {return;}
         if(!item.hasItemMeta()) {return;}
+        if(!e.getPlayer().hasPermission("ditu.use")) {
+            e.getPlayer().sendMessage(ChatColor.YELLOW + "由于您不是CEO会员，所以没法使用自定义地图");
+            return;
+        }
+
         PersistentDataContainer container = item.getItemMeta().getPersistentDataContainer();
         if(!container.has(new NamespacedKey(main, "path"), PersistentDataType.STRING)) {return;}
         path = container.get(new NamespacedKey(main, "path"), PersistentDataType.STRING);
         String mode = container.get(new NamespacedKey(main, "mode"), PersistentDataType.STRING);
         float scaleMode = 1;
+
+
+
         if(container.has(new NamespacedKey(main, "scalemode"), PersistentDataType.FLOAT)) {
             scaleMode = container.get(new NamespacedKey(main, "scalemode"), PersistentDataType.FLOAT);
         }
@@ -160,6 +168,8 @@ public class InteractListener implements Listener {
             }
         }
         itemFrame.setRotation(Rotation.values()[(itemFrame.getRotation().ordinal() + 7) % 8]);
+        //移除
+        e.getPlayer().getInventory().removeItem(item);
     }
     @EventHandler
     public void interactEvent(EntityDamageByEntityEvent e) {
